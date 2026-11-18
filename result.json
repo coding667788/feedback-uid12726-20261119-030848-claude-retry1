@@ -1,0 +1,648 @@
+{
+  "results": [
+    {
+      "audit": [
+        {
+          "column": "secret_note",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-01",
+          "kind": "column_omitted",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "items_whole",
+          "detail": "命中全局封锁（容器内含封锁枝）: /items/0/sk~1u",
+          "event_id": "ev-order-01",
+          "kind": "column_omitted",
+          "path": "/items",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "item_sku_0_probe",
+          "detail": "数组仅允许整体读取",
+          "event_id": "ev-order-01",
+          "kind": "column_omitted",
+          "path": "/items/0/sku",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "secret_note",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-02",
+          "kind": "column_omitted",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "items_whole",
+          "detail": "命中全局封锁（容器内含封锁枝）: /items/0/sk~1u",
+          "event_id": "ev-order-02",
+          "kind": "column_omitted",
+          "path": "/items",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "item_sku_0_probe",
+          "detail": "数组仅允许整体读取",
+          "event_id": "ev-order-02",
+          "kind": "column_omitted",
+          "path": "/items/0/sku",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "contact",
+          "detail": "字典缺少配置路径对应的键",
+          "event_id": "ev-order-03",
+          "kind": "column_omitted",
+          "path": "/customer/region",
+          "reason": "POINTER_MISSING",
+          "view_id": "order-view"
+        },
+        {
+          "column": "secret_note",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-03",
+          "kind": "column_omitted",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "items_whole",
+          "detail": "命中全局封锁（容器内含封锁枝）: /items/0/sk~1u",
+          "event_id": "ev-order-03",
+          "kind": "column_omitted",
+          "path": "/items",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "item_sku_0_probe",
+          "detail": "数组仅允许整体读取",
+          "event_id": "ev-order-03",
+          "kind": "column_omitted",
+          "path": "/items/0/sku",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "amount",
+          "detail": "字典缺少配置路径对应的键",
+          "event_id": "ev-order-04",
+          "kind": "event_rejected",
+          "path": "/amount",
+          "reason": "POINTER_MISSING",
+          "view_id": "order-view"
+        },
+        {
+          "column": "secret_note",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-05",
+          "kind": "column_omitted",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "items_whole",
+          "detail": "命中全局封锁（容器内含封锁枝）: /items/0/sk~1u",
+          "event_id": "ev-order-05",
+          "kind": "column_omitted",
+          "path": "/items",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "item_sku_0_probe",
+          "detail": "角色未精确授权该原始路径",
+          "event_id": "ev-order-05",
+          "kind": "column_omitted",
+          "path": "/items/0/sku",
+          "reason": "PATH_NOT_AUTHORIZED",
+          "view_id": "order-view"
+        },
+        {
+          "column": "first_sku",
+          "detail": "数组仅允许整体读取",
+          "event_id": "ev-order-01",
+          "kind": "event_rejected",
+          "path": "/items/0/sku",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-array-required-view"
+        },
+        {
+          "column": "first_sku",
+          "detail": "数组仅允许整体读取",
+          "event_id": "ev-order-02",
+          "kind": "event_rejected",
+          "path": "/items/0/sku",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-array-required-view"
+        },
+        {
+          "column": "first_sku",
+          "detail": "数组仅允许整体读取",
+          "event_id": "ev-order-03",
+          "kind": "event_rejected",
+          "path": "/items/0/sku",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-array-required-view"
+        },
+        {
+          "column": "first_sku",
+          "detail": "数组仅允许整体读取",
+          "event_id": "ev-order-04",
+          "kind": "event_rejected",
+          "path": "/items/0/sku",
+          "reason": "PATH_ARRAY_BLOCKED",
+          "view_id": "order-array-required-view"
+        },
+        {
+          "column": "first_sku",
+          "detail": "角色未精确授权该原始路径",
+          "event_id": "ev-order-05",
+          "kind": "event_rejected",
+          "path": "/items/0/sku",
+          "reason": "PATH_NOT_AUTHORIZED",
+          "view_id": "order-array-required-view"
+        },
+        {
+          "column": "id_plus_secret",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-01",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-concat-forbidden-view"
+        },
+        {
+          "column": "id_plus_secret",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-02",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-concat-forbidden-view"
+        },
+        {
+          "column": "id_plus_secret",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-03",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-concat-forbidden-view"
+        },
+        {
+          "column": "id_plus_secret",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-04",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-concat-forbidden-view"
+        },
+        {
+          "column": "id_plus_secret",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-05",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-concat-forbidden-view"
+        },
+        {
+          "column": "secret_holder",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-01",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-indirect-derived-view"
+        },
+        {
+          "column": "secret_holder",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-02",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-indirect-derived-view"
+        },
+        {
+          "column": "secret_holder",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-03",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-indirect-derived-view"
+        },
+        {
+          "column": "secret_holder",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-04",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-indirect-derived-view"
+        },
+        {
+          "column": "secret_holder",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-order-05",
+          "kind": "event_rejected",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "order-indirect-derived-view"
+        },
+        {
+          "column": "method_whole",
+          "detail": "命中全局封锁（容器内含封锁枝）: /method/token",
+          "event_id": "ev-pay-01",
+          "kind": "column_omitted",
+          "path": "/method",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "payment-view"
+        },
+        {
+          "column": "bank",
+          "detail": "字典缺少配置路径对应的键",
+          "event_id": "ev-pay-02",
+          "kind": "column_omitted",
+          "path": "/method/bank",
+          "reason": "POINTER_MISSING",
+          "view_id": "payment-view"
+        },
+        {
+          "column": "method_whole",
+          "detail": "命中全局封锁（容器内含封锁枝）: /method/token",
+          "event_id": "ev-pay-02",
+          "kind": "column_omitted",
+          "path": "/method",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "payment-view"
+        },
+        {
+          "detail": "导出列重名: 'c1'",
+          "kind": "spec_rejected",
+          "reason": "SPEC_COLUMN_NAME_CONFLICT",
+          "view_id": "bad-duplicate"
+        },
+        {
+          "detail": "派生列引用存在环: a -> b -> a",
+          "kind": "spec_rejected",
+          "reason": "SPEC_DERIVED_CYCLE",
+          "view_id": "bad-cycle"
+        },
+        {
+          "detail": "列 'a' 引用了不存在的派生列 'ghost'",
+          "kind": "spec_rejected",
+          "reason": "SPEC_DEP_MISSING",
+          "view_id": "bad-missing-dep"
+        }
+      ],
+      "job_id": "job-main",
+      "snapshot": {
+        "config_sha256": "c83917f3af1f6787037bf014d2a42067edcbb04a8de6d6aace1051fb5c46558e",
+        "event_count": 7,
+        "events_sha256": "49c67be9b50ae3ad74b7a8cb9d3f22fe20960e8887d0cbd343f8c3590cb0584f",
+        "policy_id": "pol-standard",
+        "policy_version": "v1",
+        "role": "analyst",
+        "sha256": "3ffc65826abd87f66af25b2198f46e3ae310b4469839da8a92902695b2c7acaa",
+        "spec_versions": [
+          {
+            "spec_version": "v3",
+            "view_id": "order-view"
+          },
+          {
+            "spec_version": "v1",
+            "view_id": "order-array-required-view"
+          },
+          {
+            "spec_version": "v1",
+            "view_id": "order-concat-forbidden-view"
+          },
+          {
+            "spec_version": "v1",
+            "view_id": "order-indirect-derived-view"
+          },
+          {
+            "spec_version": "v2",
+            "view_id": "payment-view"
+          },
+          {
+            "spec_version": null,
+            "view_id": "bad-duplicate"
+          },
+          {
+            "spec_version": null,
+            "view_id": "bad-cycle"
+          },
+          {
+            "spec_version": null,
+            "view_id": "bad-missing-dep"
+          }
+        ]
+      },
+      "views": [
+        {
+          "event_type": "order.created",
+          "rows": [
+            {
+              "event_id": "ev-order-01",
+              "event_type": "order.created",
+              "tenant": "tenant-a",
+              "values": {
+                "amount": 1200,
+                "contact": "CN-SH|######San",
+                "customer_name_masked": "######San",
+                "order_id": "O-1001",
+                "tier": "gold"
+              }
+            },
+            {
+              "event_id": "ev-order-02",
+              "event_type": "order.created",
+              "tenant": "tenant-b",
+              "values": {
+                "amount": 350,
+                "contact": "CN-BJ|## Si",
+                "customer_name_masked": "## Si",
+                "order_id": "O-1002",
+                "tier": "silver"
+              }
+            },
+            {
+              "event_id": "ev-order-03",
+              "event_type": "order.created",
+              "tenant": "tenant-a",
+              "values": {
+                "amount": 99,
+                "customer_name_masked": "#### Wu",
+                "order_id": "O-1003",
+                "tier": "bronze"
+              }
+            },
+            {
+              "event_id": "ev-order-05",
+              "event_type": "order.created",
+              "tenant": "tenant-b",
+              "values": {
+                "amount": 260,
+                "contact": "CN-CD|### Qi",
+                "customer_name_masked": "### Qi",
+                "order_id": "O-1005",
+                "tier": "silver"
+              }
+            }
+          ],
+          "spec_version": "v3",
+          "stats": {
+            "events_in_scope": 5,
+            "events_rejected": 1,
+            "optional_columns_omitted": 13,
+            "rows_exported": 4
+          },
+          "status": "ok",
+          "view_id": "order-view"
+        },
+        {
+          "event_type": "order.created",
+          "rows": [],
+          "spec_version": "v1",
+          "stats": {
+            "events_in_scope": 5,
+            "events_rejected": 5,
+            "optional_columns_omitted": 0,
+            "rows_exported": 0
+          },
+          "status": "ok",
+          "view_id": "order-array-required-view"
+        },
+        {
+          "event_type": "order.created",
+          "rows": [],
+          "spec_version": "v1",
+          "stats": {
+            "events_in_scope": 5,
+            "events_rejected": 5,
+            "optional_columns_omitted": 0,
+            "rows_exported": 0
+          },
+          "status": "ok",
+          "view_id": "order-concat-forbidden-view"
+        },
+        {
+          "event_type": "order.created",
+          "rows": [],
+          "spec_version": "v1",
+          "stats": {
+            "events_in_scope": 5,
+            "events_rejected": 5,
+            "optional_columns_omitted": 0,
+            "rows_exported": 0
+          },
+          "status": "ok",
+          "view_id": "order-indirect-derived-view"
+        },
+        {
+          "event_type": "payment.captured",
+          "rows": [
+            {
+              "event_id": "ev-pay-01",
+              "event_type": "payment.captured",
+              "tenant": "tenant-a",
+              "values": {
+                "bank": "ICBC",
+                "card_masked": "6222************",
+                "coupons_whole": [
+                  {
+                    "code": "CP-1",
+                    "value": 20
+                  }
+                ],
+                "order_ref": "O-1001",
+                "payment_id": "P-2001"
+              }
+            },
+            {
+              "event_id": "ev-pay-02",
+              "event_type": "payment.captured",
+              "tenant": "tenant-a",
+              "values": {
+                "card_masked": "6222************",
+                "coupons_whole": [],
+                "order_ref": "O-1002",
+                "payment_id": "P-2002"
+              }
+            }
+          ],
+          "spec_version": "v2",
+          "stats": {
+            "events_in_scope": 2,
+            "events_rejected": 0,
+            "optional_columns_omitted": 3,
+            "rows_exported": 2
+          },
+          "status": "ok",
+          "view_id": "payment-view"
+        },
+        {
+          "reason": "SPEC_COLUMN_NAME_CONFLICT",
+          "rows": [],
+          "stats": {
+            "events_in_scope": 0,
+            "events_rejected": 0,
+            "optional_columns_omitted": 0,
+            "rows_exported": 0
+          },
+          "status": "rejected",
+          "view_id": "bad-duplicate"
+        },
+        {
+          "reason": "SPEC_DERIVED_CYCLE",
+          "rows": [],
+          "stats": {
+            "events_in_scope": 0,
+            "events_rejected": 0,
+            "optional_columns_omitted": 0,
+            "rows_exported": 0
+          },
+          "status": "rejected",
+          "view_id": "bad-cycle"
+        },
+        {
+          "reason": "SPEC_DEP_MISSING",
+          "rows": [],
+          "stats": {
+            "events_in_scope": 0,
+            "events_rejected": 0,
+            "optional_columns_omitted": 0,
+            "rows_exported": 0
+          },
+          "status": "rejected",
+          "view_id": "bad-missing-dep"
+        }
+      ]
+    },
+    {
+      "audit": [
+        {
+          "column": "secret_probe",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-pair",
+          "kind": "column_omitted",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "pair-view"
+        }
+      ],
+      "job_id": "job-pair-a",
+      "snapshot": {
+        "config_sha256": "ee6aa95336ae292a92a1a925ae31b94db6278da89a99c1b530bb7f0ff64a1c33",
+        "event_count": 1,
+        "events_sha256": "c3f0dd2d7f65911548f273315a2b7c06f468e2aba9a832cc7b688a88b7d2ce04",
+        "policy_id": "pol-standard",
+        "policy_version": "v1",
+        "role": "analyst",
+        "sha256": "9acdd49ac679bbd71344d451e9966d253caee71f21568e0c37aa0a88bef5f206",
+        "spec_versions": [
+          {
+            "spec_version": "v1",
+            "view_id": "pair-view"
+          }
+        ]
+      },
+      "views": [
+        {
+          "event_type": "order.created",
+          "rows": [
+            {
+              "event_id": "ev-pair",
+              "event_type": "order.created",
+              "tenant": "tenant-a",
+              "values": {
+                "amount": 88,
+                "name_masked": "P********",
+                "order_id": "O-PAIR"
+              }
+            }
+          ],
+          "spec_version": "v1",
+          "stats": {
+            "events_in_scope": 1,
+            "events_rejected": 0,
+            "optional_columns_omitted": 1,
+            "rows_exported": 1
+          },
+          "status": "ok",
+          "view_id": "pair-view"
+        }
+      ]
+    },
+    {
+      "audit": [
+        {
+          "column": "secret_probe",
+          "detail": "命中全局封锁: /customer/secret",
+          "event_id": "ev-pair",
+          "kind": "column_omitted",
+          "path": "/customer/secret",
+          "reason": "PATH_GLOBAL_BLOCKED",
+          "view_id": "pair-view"
+        }
+      ],
+      "job_id": "job-pair-b",
+      "snapshot": {
+        "config_sha256": "0b6de660420da7093c421a0be3b1cf90aeed9fd6a74742615cbe152a65d5e32d",
+        "event_count": 1,
+        "events_sha256": "ac67802fdbfd7743a67e22c9f430054361281600291e39a9da5605e6ae6de1f7",
+        "policy_id": "pol-standard",
+        "policy_version": "v1",
+        "role": "analyst",
+        "sha256": "ffbb84539426241ccdf2ec541923b0581c8b58373377a869a6d9a9eb07304525",
+        "spec_versions": [
+          {
+            "spec_version": "v1",
+            "view_id": "pair-view"
+          }
+        ]
+      },
+      "views": [
+        {
+          "event_type": "order.created",
+          "rows": [
+            {
+              "event_id": "ev-pair",
+              "event_type": "order.created",
+              "tenant": "tenant-a",
+              "values": {
+                "amount": 88,
+                "name_masked": "P********",
+                "order_id": "O-PAIR"
+              }
+            }
+          ],
+          "spec_version": "v1",
+          "stats": {
+            "events_in_scope": 1,
+            "events_rejected": 0,
+            "optional_columns_omitted": 1,
+            "rows_exported": 1
+          },
+          "status": "ok",
+          "view_id": "pair-view"
+        }
+      ]
+    }
+  ]
+}

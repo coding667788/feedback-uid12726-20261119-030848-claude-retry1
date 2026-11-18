@@ -1,0 +1,813 @@
+{
+  "jobs": [
+    {
+      "events": [
+        {
+          "event_id": "ev-order-01",
+          "event_type": "order.created",
+          "payload": {
+            "amount": 1200,
+            "channel": "web",
+            "customer": {
+              "name": "Zhang San",
+              "phone": "13800001111",
+              "region": "CN-SH",
+              "secret": "SHOULD-NEVER-LEAK-1",
+              "tier": "gold"
+            },
+            "items": [
+              {
+                "qty": 2,
+                "sku": "SKU-1"
+              },
+              {
+                "qty": 1,
+                "sku": "SKU-2"
+              }
+            ],
+            "order_id": "O-1001"
+          },
+          "tenant": "tenant-a"
+        },
+        {
+          "event_id": "ev-order-02",
+          "event_type": "order.created",
+          "payload": {
+            "amount": 350,
+            "channel": "app",
+            "customer": {
+              "name": "Li Si",
+              "phone": "13900002222",
+              "region": "CN-BJ",
+              "secret": "SHOULD-NEVER-LEAK-2",
+              "tier": "silver"
+            },
+            "items": [
+              {
+                "qty": 1,
+                "sku": "SKU-3"
+              }
+            ],
+            "order_id": "O-1002"
+          },
+          "tenant": "tenant-b"
+        },
+        {
+          "event_id": "ev-order-03",
+          "event_type": "order.created",
+          "payload": {
+            "amount": 99,
+            "channel": "web",
+            "customer": {
+              "name": "Wang Wu",
+              "phone": null,
+              "secret": "SHOULD-NEVER-LEAK-3",
+              "tier": "bronze"
+            },
+            "items": [],
+            "order_id": "O-1003"
+          },
+          "tenant": "tenant-a"
+        },
+        {
+          "event_id": "ev-order-04",
+          "event_type": "order.created",
+          "payload": {
+            "channel": "pos",
+            "customer": {
+              "name": "Zhao Liu",
+              "phone": "13700003333",
+              "region": "CN-GD",
+              "tier": "gold"
+            },
+            "items": [
+              {
+                "qty": 1,
+                "sku": "SKU-9"
+              }
+            ],
+            "order_id": "O-1004"
+          },
+          "tenant": "tenant-a"
+        },
+        {
+          "event_id": "ev-order-05",
+          "event_type": "order.created",
+          "payload": {
+            "amount": 260,
+            "channel": "web",
+            "customer": {
+              "name": "Sun Qi",
+              "phone": "13600004444",
+              "region": "CN-CD",
+              "secret": "SHOULD-NEVER-LEAK-5",
+              "tier": "silver"
+            },
+            "items": {
+              "0": {
+                "qty": 1,
+                "sku": "SKU-DICT-ZERO"
+              }
+            },
+            "order_id": "O-1005"
+          },
+          "tenant": "tenant-b"
+        },
+        {
+          "event_id": "ev-pay-01",
+          "event_type": "payment.captured",
+          "payload": {
+            "amount": 1200,
+            "coupons": [
+              {
+                "code": "CP-1",
+                "value": 20
+              }
+            ],
+            "method": {
+              "bank": "ICBC",
+              "card": "6222021234567890",
+              "token": "tok-secret-2001"
+            },
+            "order_id": "O-1001",
+            "payment_id": "P-2001"
+          },
+          "tenant": "tenant-a"
+        },
+        {
+          "event_id": "ev-pay-02",
+          "event_type": "payment.captured",
+          "payload": {
+            "amount": 350,
+            "coupons": [],
+            "method": {
+              "card": "6222029999999999",
+              "token": "tok-secret-2002"
+            },
+            "order_id": "O-1002",
+            "payment_id": "P-2002"
+          },
+          "tenant": "tenant-a"
+        }
+      ],
+      "job_id": "job-main",
+      "policy": {
+        "global_blocks": [
+          {
+            "event_type": "order.created",
+            "path": "/customer/secret"
+          },
+          {
+            "event_type": "order.created",
+            "path": "/items/0/sk~1u"
+          },
+          {
+            "event_type": "payment.captured",
+            "path": "/method/token"
+          }
+        ],
+        "policy_id": "pol-standard",
+        "roles": {
+          "analyst": {
+            "event_types": [
+              "order.created",
+              "payment.captured"
+            ],
+            "paths": {
+              "order.created": [
+                "/order_id",
+                "/amount",
+                "/channel",
+                "/customer/name",
+                "/customer/phone",
+                "/customer/tier",
+                "/customer/region",
+                "/items"
+              ],
+              "payment.captured": [
+                "/payment_id",
+                "/order_id",
+                "/amount",
+                "/method/card",
+                "/method/bank",
+                "/coupons"
+              ]
+            },
+            "tenants": [
+              "tenant-a",
+              "tenant-b"
+            ]
+          },
+          "auditor": {
+            "event_types": [
+              "payment.captured"
+            ],
+            "paths": {
+              "payment.captured": [
+                "/payment_id",
+                "/order_id",
+                "/amount",
+                "/method/bank"
+              ]
+            },
+            "tenants": [
+              "tenant-a"
+            ]
+          }
+        },
+        "version": "v1"
+      },
+      "role": "analyst",
+      "views": [
+        {
+          "columns": [
+            {
+              "name": "order_id",
+              "required": true,
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "amount",
+              "required": true,
+              "source": {
+                "path": "/amount",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "customer_name_masked",
+              "required": true,
+              "source": {
+                "char": "#",
+                "keep": 3,
+                "path": "/customer/name",
+                "side": "right",
+                "type": "mask"
+              }
+            },
+            {
+              "name": "contact",
+              "required": false,
+              "source": {
+                "parts": [
+                  "/customer/region",
+                  {
+                    "literal": "|"
+                  },
+                  "$customer_name_masked"
+                ],
+                "type": "concat"
+              }
+            },
+            {
+              "name": "tier",
+              "required": false,
+              "source": {
+                "path": "/customer/tier",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "secret_note",
+              "required": false,
+              "source": {
+                "path": "/customer/secret",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "items_whole",
+              "required": false,
+              "source": {
+                "path": "/items",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "item_sku_0_probe",
+              "required": false,
+              "source": {
+                "path": "/items/0/sku",
+                "type": "pointer"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "sort": [
+            {
+              "column": "order_id",
+              "direction": "asc"
+            }
+          ],
+          "spec_id": "order-view",
+          "version": "v3"
+        },
+        {
+          "columns": [
+            {
+              "name": "order_id",
+              "required": true,
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "first_sku",
+              "required": true,
+              "source": {
+                "path": "/items/0/sku",
+                "type": "pointer"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "order-array-required-view",
+          "version": "v1"
+        },
+        {
+          "columns": [
+            {
+              "name": "order_id",
+              "required": true,
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "id_plus_secret",
+              "required": true,
+              "source": {
+                "parts": [
+                  "/order_id",
+                  {
+                    "literal": "::"
+                  },
+                  "/customer/secret"
+                ],
+                "type": "concat"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "order-concat-forbidden-view",
+          "version": "v1"
+        },
+        {
+          "columns": [
+            {
+              "name": "order_id",
+              "required": true,
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "secret_holder",
+              "required": true,
+              "source": {
+                "path": "/customer/secret",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "laundered",
+              "required": true,
+              "source": {
+                "parts": [
+                  {
+                    "literal": "x="
+                  },
+                  "$secret_holder"
+                ],
+                "type": "concat"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "order-indirect-derived-view",
+          "version": "v1"
+        },
+        {
+          "columns": [
+            {
+              "name": "payment_id",
+              "required": true,
+              "source": {
+                "path": "/payment_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "order_ref",
+              "required": true,
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "card_masked",
+              "required": true,
+              "source": {
+                "char": "*",
+                "keep": 4,
+                "path": "/method/card",
+                "side": "left",
+                "type": "mask"
+              }
+            },
+            {
+              "name": "bank",
+              "required": false,
+              "source": {
+                "path": "/method/bank",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "method_whole",
+              "required": false,
+              "source": {
+                "path": "/method",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "coupons_whole",
+              "required": false,
+              "source": {
+                "path": "/coupons",
+                "type": "pointer"
+              }
+            }
+          ],
+          "event_type": "payment.captured",
+          "sort": [
+            {
+              "column": "payment_id",
+              "direction": "asc"
+            }
+          ],
+          "spec_id": "payment-view",
+          "version": "v2"
+        },
+        {
+          "columns": [
+            {
+              "name": "c1",
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "c1",
+              "source": {
+                "path": "/amount",
+                "type": "pointer"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "bad-duplicate",
+          "version": "v1"
+        },
+        {
+          "columns": [
+            {
+              "name": "a",
+              "source": {
+                "parts": [
+                  "$b",
+                  "/channel"
+                ],
+                "type": "concat"
+              }
+            },
+            {
+              "name": "b",
+              "source": {
+                "parts": [
+                  "$a",
+                  "/order_id"
+                ],
+                "type": "concat"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "bad-cycle",
+          "version": "v1"
+        },
+        {
+          "columns": [
+            {
+              "name": "a",
+              "source": {
+                "parts": [
+                  "$ghost",
+                  "/order_id"
+                ],
+                "type": "concat"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "bad-missing-dep",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "events": [
+        {
+          "event_id": "ev-pair",
+          "event_type": "order.created",
+          "payload": {
+            "amount": 88,
+            "channel": "web",
+            "customer": {
+              "name": "Pair User",
+              "phone": "13511112222",
+              "region": "CN-SH",
+              "secret": "alpha-secret-value",
+              "tier": "gold"
+            },
+            "items": [
+              {
+                "qty": 1,
+                "sku": "SKU-PAIR"
+              }
+            ],
+            "order_id": "O-PAIR"
+          },
+          "tenant": "tenant-a"
+        }
+      ],
+      "job_id": "job-pair-a",
+      "policy": {
+        "global_blocks": [
+          {
+            "event_type": "order.created",
+            "path": "/customer/secret"
+          },
+          {
+            "event_type": "order.created",
+            "path": "/items/0/sk~1u"
+          },
+          {
+            "event_type": "payment.captured",
+            "path": "/method/token"
+          }
+        ],
+        "policy_id": "pol-standard",
+        "roles": {
+          "analyst": {
+            "event_types": [
+              "order.created",
+              "payment.captured"
+            ],
+            "paths": {
+              "order.created": [
+                "/order_id",
+                "/amount",
+                "/channel",
+                "/customer/name",
+                "/customer/phone",
+                "/customer/tier",
+                "/customer/region",
+                "/items"
+              ],
+              "payment.captured": [
+                "/payment_id",
+                "/order_id",
+                "/amount",
+                "/method/card",
+                "/method/bank",
+                "/coupons"
+              ]
+            },
+            "tenants": [
+              "tenant-a",
+              "tenant-b"
+            ]
+          },
+          "auditor": {
+            "event_types": [
+              "payment.captured"
+            ],
+            "paths": {
+              "payment.captured": [
+                "/payment_id",
+                "/order_id",
+                "/amount",
+                "/method/bank"
+              ]
+            },
+            "tenants": [
+              "tenant-a"
+            ]
+          }
+        },
+        "version": "v1"
+      },
+      "role": "analyst",
+      "views": [
+        {
+          "columns": [
+            {
+              "name": "order_id",
+              "required": true,
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "amount",
+              "required": true,
+              "source": {
+                "path": "/amount",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "name_masked",
+              "required": true,
+              "source": {
+                "char": "*",
+                "keep": 1,
+                "path": "/customer/name",
+                "side": "left",
+                "type": "mask"
+              }
+            },
+            {
+              "name": "secret_probe",
+              "required": false,
+              "source": {
+                "path": "/customer/secret",
+                "type": "pointer"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "pair-view",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "events": [
+        {
+          "event_id": "ev-pair",
+          "event_type": "order.created",
+          "payload": {
+            "amount": 88,
+            "channel": "web",
+            "customer": {
+              "extra_unauthorized_branch": {
+                "k": [
+                  true,
+                  null,
+                  3.14
+                ]
+              },
+              "name": "Pair User",
+              "phone": "13511112222",
+              "region": "CN-SH",
+              "secret_renamed": "DIFFERENT-secret-999",
+              "tier": "gold"
+            },
+            "items": [
+              {
+                "qty": 1,
+                "sku": "SKU-PAIR"
+              }
+            ],
+            "order_id": "O-PAIR"
+          },
+          "tenant": "tenant-a"
+        }
+      ],
+      "job_id": "job-pair-b",
+      "policy": {
+        "global_blocks": [
+          {
+            "event_type": "order.created",
+            "path": "/customer/secret"
+          },
+          {
+            "event_type": "order.created",
+            "path": "/items/0/sk~1u"
+          },
+          {
+            "event_type": "payment.captured",
+            "path": "/method/token"
+          }
+        ],
+        "policy_id": "pol-standard",
+        "roles": {
+          "analyst": {
+            "event_types": [
+              "order.created",
+              "payment.captured"
+            ],
+            "paths": {
+              "order.created": [
+                "/order_id",
+                "/amount",
+                "/channel",
+                "/customer/name",
+                "/customer/phone",
+                "/customer/tier",
+                "/customer/region",
+                "/items"
+              ],
+              "payment.captured": [
+                "/payment_id",
+                "/order_id",
+                "/amount",
+                "/method/card",
+                "/method/bank",
+                "/coupons"
+              ]
+            },
+            "tenants": [
+              "tenant-a",
+              "tenant-b"
+            ]
+          },
+          "auditor": {
+            "event_types": [
+              "payment.captured"
+            ],
+            "paths": {
+              "payment.captured": [
+                "/payment_id",
+                "/order_id",
+                "/amount",
+                "/method/bank"
+              ]
+            },
+            "tenants": [
+              "tenant-a"
+            ]
+          }
+        },
+        "version": "v1"
+      },
+      "role": "analyst",
+      "views": [
+        {
+          "columns": [
+            {
+              "name": "order_id",
+              "required": true,
+              "source": {
+                "path": "/order_id",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "amount",
+              "required": true,
+              "source": {
+                "path": "/amount",
+                "type": "pointer"
+              }
+            },
+            {
+              "name": "name_masked",
+              "required": true,
+              "source": {
+                "char": "*",
+                "keep": 1,
+                "path": "/customer/name",
+                "side": "left",
+                "type": "mask"
+              }
+            },
+            {
+              "name": "secret_probe",
+              "required": false,
+              "source": {
+                "path": "/customer/secret",
+                "type": "pointer"
+              }
+            }
+          ],
+          "event_type": "order.created",
+          "spec_id": "pair-view",
+          "version": "v1"
+        }
+      ]
+    }
+  ]
+}
